@@ -38,3 +38,6 @@ junit.xml
 !.vscode/extensions.json
 /.entities
 .cursor/*
+
+/generated/prisma
+/data

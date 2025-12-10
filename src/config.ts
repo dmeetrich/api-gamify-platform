@@ -1,5 +1,6 @@
-import { Cast } from './infrastructure/utils/cast';
 import { config, DotenvParseOutput } from 'dotenv';
+
+import { Cast } from './infrastructure/utils/cast';
 
 export const configResult = config();
 
@@ -8,9 +9,10 @@ export enum NodeEnv {
   Production = 'production',
 }
 
-const { GLOBAL_HTTP_REQ_TIMEOUT, NODE_ENV, PORT, STAND_NAMESPACE, LOCALHOST } = process.env as DotenvParseOutput;
+const { GLOBAL_HTTP_REQ_TIMEOUT, NODE_ENV, PORT, STAND_NAMESPACE, LOCALHOST, DATABASE_URL } = process.env as DotenvParseOutput;
 
 export class Config {
+  static databaseUrl = DATABASE_URL;
   static endpointsCacheMaxAge = 1200; // 20 min
   static globalHttpReqTimeout = Cast.tryToInt(GLOBAL_HTTP_REQ_TIMEOUT) || 10000;
   static isProductionMode = (NODE_ENV as NodeEnv) === NodeEnv.Production;
