@@ -4,6 +4,14 @@ import { IsNotEmptyDefault, IsStringDefault } from '../../infrastructure/utils/c
 
 export class ApiCreateQuizPayload {
   @ApiProperty({
+    description: 'Цвет фона баннера',
+    example: '#BA3840',
+  })
+  @IsStringDefault()
+  @IsNotEmptyDefault
+  bannerBgColor: string;
+
+  @ApiProperty({
     description: 'Цвет фона',
     example: '#BA3840',
   })
@@ -28,14 +36,6 @@ export class ApiCreateQuizPayload {
   image: string;
 
   @ApiProperty({
-    description: 'Base64 маленького изображения',
-    example: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...',
-  })
-  @IsStringDefault()
-  @IsNotEmptyDefault
-  imageSmall: string;
-
-  @ApiProperty({
     description: 'Краткое описание викторины',
     example: 'Получите ваучер для ужина',
   })
@@ -50,4 +50,12 @@ export class ApiCreateQuizPayload {
   @IsStringDefault()
   @IsNotEmptyDefault
   title: string;
+
+  @ApiProperty({
+    description: 'Base64 маленького изображения',
+    example: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...',
+  })
+  @IsStringDefault()
+  @IsNotEmptyDefault
+  widgetImage: string;
 }

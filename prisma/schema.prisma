@@ -19,6 +19,7 @@ model Quiz {
   title            String
   description      String
   shortDescription String
+  bannerBgColor    String
   bgColor          String
   image            String
   imageSmall       String

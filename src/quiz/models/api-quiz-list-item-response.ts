@@ -2,6 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ApiQuizListItemResponse {
   @ApiProperty({
+    description: 'Цвет фона баннера',
+    example: '#BA3840',
+  })
+  bannerBgColor: string;
+
+  @ApiProperty({
     description: 'Цвет фона',
     example: '#BA3840',
   })
@@ -26,12 +32,6 @@ export class ApiQuizListItemResponse {
   image: string;
 
   @ApiProperty({
-    description: 'URL маленького изображения',
-    example: 'https://example.com/image-small.jpg',
-  })
-  imageSmall: string;
-
-  @ApiProperty({
     description: 'Краткое описание викторины',
     example: 'Получите ваучер для ужина',
   })
@@ -48,4 +48,10 @@ export class ApiQuizListItemResponse {
     example: '550e8400-e29b-41d4-a716-446655440000',
   })
   uuid: string;
+
+  @ApiProperty({
+    description: 'URL маленького изображения',
+    example: 'https://example.com/image-small.jpg',
+  })
+  widgetImage: string;
 }

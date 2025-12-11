@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
 import { IsIntDefault, IsNotEmptyDefault, IsStringDefault } from '../../infrastructure/utils/class-validator-decorators';
 
@@ -8,6 +9,7 @@ export class ApiUpdateTaskPayload {
     example: 'Необходимо открыть новый вклад с любыми условиями',
     required: false,
   })
+  @IsOptional()
   @IsStringDefault()
   @IsNotEmptyDefault
   description?: string;
@@ -17,6 +19,7 @@ export class ApiUpdateTaskPayload {
     example: 'task-001',
     required: false,
   })
+  @IsOptional()
   @IsStringDefault()
   @IsNotEmptyDefault
   extId?: string;
@@ -26,6 +29,7 @@ export class ApiUpdateTaskPayload {
     example: 1,
     required: false,
   })
+  @IsOptional()
   @IsIntDefault
   quizId?: number;
 
@@ -34,6 +38,7 @@ export class ApiUpdateTaskPayload {
     example: 'Откройте вклад',
     required: false,
   })
+  @IsOptional()
   @IsStringDefault()
   @IsNotEmptyDefault
   title?: string;

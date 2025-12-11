@@ -16,9 +16,10 @@ export class QuizService {
         title: payload.title,
         description: payload.description,
         shortDescription: payload.shortDescription,
+        bannerBgColor: payload.bannerBgColor,
         bgColor: payload.bgColor,
         image: payload.image,
-        imageSmall: payload.imageSmall,
+        imageSmall: payload.widgetImage,
       },
       include: { tasks: true },
     });
@@ -50,11 +51,12 @@ export class QuizService {
 
     return {
       items: items.map((quiz) => ({
+        bannerBgColor: quiz.bannerBgColor,
         bgColor: quiz.bgColor,
         description: quiz.description,
         entityId: quiz.entityId,
         image: quiz.image,
-        imageSmall: quiz.imageSmall,
+        widgetImage: quiz.imageSmall,
         shortDescription: quiz.shortDescription,
         title: quiz.title,
         uuid: quiz.uuid,
@@ -91,9 +93,10 @@ export class QuizService {
         ...(payload.title !== undefined && { title: payload.title }),
         ...(payload.description !== undefined && { description: payload.description }),
         ...(payload.shortDescription !== undefined && { shortDescription: payload.shortDescription }),
+        ...(payload.bannerBgColor !== undefined && { bannerBgColor: payload.bannerBgColor }),
         ...(payload.bgColor !== undefined && { bgColor: payload.bgColor }),
         ...(payload.image !== undefined && { image: payload.image }),
-        ...(payload.imageSmall !== undefined && { imageSmall: payload.imageSmall }),
+        ...(payload.widgetImage !== undefined && { imageSmall: payload.widgetImage }),
       },
       include: { tasks: true },
     });
@@ -107,6 +110,7 @@ export class QuizService {
     title: string;
     description: string;
     shortDescription: string;
+    bannerBgColor: string;
     bgColor: string;
     image: string;
     imageSmall: string;
@@ -119,11 +123,12 @@ export class QuizService {
     }>;
   }): ApiQuizResponse {
     return {
+      bannerBgColor: quiz.bannerBgColor,
       bgColor: quiz.bgColor,
       description: quiz.description,
       entityId: quiz.entityId,
       image: quiz.image,
-      imageSmall: quiz.imageSmall,
+      widgetImage: quiz.imageSmall,
       shortDescription: quiz.shortDescription,
       tasks: quiz.tasks.map((task) => ({
         entityId: task.entityId,

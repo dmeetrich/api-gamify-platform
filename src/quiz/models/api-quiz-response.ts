@@ -4,6 +4,12 @@ import { ApiTaskResponse } from './api-task-response';
 
 export class ApiQuizResponse {
   @ApiProperty({
+    description: 'Цвет фона баннера',
+    example: '#BA3840',
+  })
+  bannerBgColor: string;
+
+  @ApiProperty({
     description: 'Цвет фона',
     example: '#BA3840',
   })
@@ -28,12 +34,6 @@ export class ApiQuizResponse {
   image: string;
 
   @ApiProperty({
-    description: 'Base64 маленького изображения',
-    example: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...',
-  })
-  imageSmall: string;
-
-  @ApiProperty({
     description: 'Краткое описание викторины',
     example: 'Получите ваучер для ужина',
   })
@@ -56,4 +56,10 @@ export class ApiQuizResponse {
     example: '550e8400-e29b-41d4-a716-446655440000',
   })
   uuid: string;
+
+  @ApiProperty({
+    description: 'Base64 маленького изображения',
+    example: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...',
+  })
+  widgetImage: string;
 }
