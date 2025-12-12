@@ -33,4 +33,12 @@ export class ApiCreateTaskPayload {
   @IsStringDefault()
   @IsNotEmptyDefault
   title: string;
+
+  @ApiProperty({
+    description: 'URL задания',
+    example: '/rshb-mbfl/webmodules/deposits/?apiVersion=48&block=1&mobile=false&isOf=false&moduleApiVersion=1',
+  })
+  @IsStringDefault()
+  @IsNotEmptyDefault
+  url: string;
 }

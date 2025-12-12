@@ -20,8 +20,21 @@ export class ApiTaskResponse {
   extId: string;
 
   @ApiProperty({
+    description: 'Флаг завершения задания',
+    example: false,
+    required: false,
+  })
+  isCompleted?: boolean;
+
+  @ApiProperty({
     description: 'Название задания',
     example: 'Откройте вклад',
   })
   title: string;
+
+  @ApiProperty({
+    description: 'URL задания',
+    example: '/rshb-mbfl/webmodules/deposits/?apiVersion=48&block=1&mobile=false&isOf=false&moduleApiVersion=1',
+  })
+  url: string;
 }

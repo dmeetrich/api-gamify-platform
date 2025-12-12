@@ -1,4 +1,5 @@
-import { Body, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 
 import { DeleteAction, GetAction, PatchAction, PostAction, TagController } from '../infrastructure/decorators/controllers-decorators';
 import { ApiEmptyResponse } from '../infrastructure/models/api-empty-response';
@@ -43,8 +44,14 @@ export class QuizController {
     response: ApiQuizResponse,
     path: ':entityId',
   })
-  getQuizById(@Param('entityId', ParseIntPipe) entityId: number): Promise<ApiQuizResponse> {
-    return this.quizService.getQuizById(entityId);
+  @ApiQuery({
+    name: 'phone',
+    required: false,
+    description: 'Номер телефона для проверки статуса выполнения заданий',
+    type: String,
+  })
+  getQuizById(@Param('entityId', ParseIntPipe) entityId: number, @Query('phone') phone?: string): Promise<ApiQuizResponse> {
+    return this.quizService.getQuizById(entityId, phone);
   }
 
   @PatchAction({

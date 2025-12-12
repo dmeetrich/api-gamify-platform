@@ -2,6 +2,7 @@ import { Body, Param, ParseIntPipe } from '@nestjs/common';
 
 import { DeleteAction, GetAction, PatchAction, PostAction, TagController } from '../infrastructure/decorators/controllers-decorators';
 import { ApiEmptyResponse } from '../infrastructure/models/api-empty-response';
+import { ApiCompleteTaskPayload } from './models/api-complete-task-payload';
 import { ApiCreateTaskPayload } from './models/api-create-task-payload';
 import { ApiTaskDetailResponse } from './models/api-task-detail-response';
 import { ApiTaskListResponse } from './models/api-task-list-response';
@@ -11,6 +12,16 @@ import { TaskService } from './task.service';
 @TagController('task', 1)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
+
+  @PostAction({
+    description: 'Отметить задание как выполненное',
+    response: ApiEmptyResponse,
+    path: 'complete',
+  })
+  async completeTask(@Body() payload: ApiCompleteTaskPayload): Promise<ApiEmptyResponse> {
+    await this.taskService.completeTask(payload);
+    return { status: 'success' };
+  }
 
   @PostAction({
     description: 'Создание задания',

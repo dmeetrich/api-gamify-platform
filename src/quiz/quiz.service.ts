@@ -65,10 +65,16 @@ export class QuizService {
     };
   }
 
-  async getQuizById(entityId: number): Promise<ApiQuizResponse> {
+  async getQuizById(entityId: number, phone?: string): Promise<ApiQuizResponse> {
     const quiz = await this.prisma.quiz.findUnique({
       where: { entityId },
-      include: { tasks: true },
+      include: {
+        tasks: {
+          include: {
+            progress: phone ? { where: { phone } } : false,
+          },
+        },
+      },
     });
 
     if (!quiz) {
@@ -120,8 +126,30 @@ export class QuizService {
       extId: string;
       title: string;
       description: string;
+      url: string;
+      progress?: Array<{ id: number }>;
     }>;
   }): ApiQuizResponse {
+    const totalTasks = quiz.tasks.length;
+    let completedTasks = 0;
+    let hasProgress = false;
+
+    const tasks = quiz.tasks.map((task) => {
+      if (task.progress !== undefined) {
+        hasProgress = true;
+        if (task.progress.length > 0) completedTasks += 1;
+      }
+
+      return {
+        entityId: task.entityId,
+        extId: task.extId,
+        title: task.title,
+        description: task.description,
+        url: task.url,
+        ...(task.progress !== undefined && { isCompleted: task.progress.length > 0 }),
+      };
+    });
+
     return {
       bannerBgColor: quiz.bannerBgColor,
       bgColor: quiz.bgColor,
@@ -129,13 +157,12 @@ export class QuizService {
       entityId: quiz.entityId,
       image: quiz.image,
       widgetImage: quiz.imageSmall,
+      progress: {
+        ...(hasProgress ? { completedTasks } : {}),
+        totalTasks,
+      },
       shortDescription: quiz.shortDescription,
-      tasks: quiz.tasks.map((task) => ({
-        entityId: task.entityId,
-        extId: task.extId,
-        title: task.title,
-        description: task.description,
-      })),
+      tasks,
       title: quiz.title,
       uuid: quiz.uuid,
     };

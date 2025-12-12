@@ -2,6 +2,21 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { ApiTaskResponse } from './api-task-response';
 
+export class ApiQuizProgressResponse {
+  @ApiProperty({
+    description: 'Количество выполненных заданий (доступно при передаче phone)',
+    example: 2,
+    required: false,
+  })
+  completedTasks?: number;
+
+  @ApiProperty({
+    description: 'Общее количество заданий',
+    example: 4,
+  })
+  totalTasks: number;
+}
+
 export class ApiQuizResponse {
   @ApiProperty({
     description: 'Цвет фона баннера',
@@ -32,6 +47,12 @@ export class ApiQuizResponse {
     example: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...',
   })
   image: string;
+
+  @ApiProperty({
+    description: 'Прогресс прохождения викторины',
+    type: ApiQuizProgressResponse,
+  })
+  progress: ApiQuizProgressResponse;
 
   @ApiProperty({
     description: 'Краткое описание викторины',
